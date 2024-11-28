@@ -6,19 +6,15 @@
     <link rel="shortcut icon" type="x-icon" href="../Logo.png" />
     <title>Personal Finance Planning</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/blog/">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
-
-    <link href="/docs/5.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link href="/public/styles/main.css" rel="stylesheet">
+    <link href="/styles/main.css" rel="stylesheet">
     
     <style>
-        /* Add background image to the hero section */
+        /* Hero section styles remain the same */
         .hero-section {
-            background-image: url('/images/hero-bg-1.png'); /* Replace with correct relative path */
+            background-image: url('/images/hero-bg-1.png');
             background-size: cover;
             background-position: center;
-            min-height: 95vh; /* Full screen height */
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -28,7 +24,6 @@
             position: relative;
         }
 
-        /* Add an overlay to improve text visibility */
         .hero-section::before {
             content: "";
             position: absolute;
@@ -36,11 +31,10 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
-            z-index: -1; /* Send overlay behind text and buttons */
+            background: rgba(0, 0, 0, 0.5);
+            z-index: -1;
         }
 
-        /* Style for the buttons */
         .btn-group {
             margin-top: 20px;
         }
@@ -48,68 +42,109 @@
             margin: 5px;
         }
     </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
-<body>    
-    <div class="d-flex">
-        <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark min-vh-100" style="width: 280px;">
-            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
-                <span class="fs-4">Menu</span>
-            </a>
-            <hr>
-            <ul class="nav nav-pills flex-column mb-auto">
-                <li class="nav-item">
-                    <a href="/" class="nav-link text-white active" aria-current="page">
-                        <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
-                        Home
-                    </a>
-                </li>
-                <li>
-                    <a href="/clientinfo" class="nav-link text-white">
-                        <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
-                        Add Client Information
-                    </a>
-                </li>
-                <li>
-                    <a href="/updateclient" class="nav-link text-white">
-                        <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
-                        Update Client Details
-                    </a>
-                </li>
-                <li>
-                    <a href="/deleteclient" class="nav-link text-white">
-                        <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
-                        Delete Client
-                    </a>
-                </li>
-                <li>
-                    <a href="/searchclient" class="nav-link text-white">
-                        <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
-                        Search Client
-                    </a>
-                </li>
-            </ul>
-            <hr>
-        </div>
-      
-        <div class="flex-grow-1 p-3">
-            <!-- Hero Section with Background Image -->
-            <div class="hero-section">
-                <h1 style="font-size: 6rem;">Personal Finance Planner</h1>
+<body>
+    <!-- Mobile Sidebar Toggle Button -->
+    <button class="mobile-sidebar-toggle d-md-none" id="mobileSidebarToggle">
+        <!-- Hamburger Menu SVG Icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+            <path d="M2 3h12a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/>
+            <path d="M2 7h12a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z"/>
+            <path d="M2 11h12a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1z"/>
+        </svg>
+    </button>    
 
-                <!-- Buttons to redirect to the services -->
-                <div class="btn-group">
-                    <a href="/clientinfo" class="btn btn-primary btn-lg">Create Client</a>
-                    <a href="/updateclient" class="btn btn-warning btn-lg">Update Client</a>
-                    <a href="/deleteclient" class="btn btn-danger btn-lg">Delete Client</a>
-                    <a href="/searchclient" class="btn btn-info btn-lg">Search Client</a>
+    <div class="d-flex">
+        <!-- Sidebar -->
+        <div class="col-md-3 col-lg-2 d-md-block bg-dark sidebar min-vh-100 p-3" id="sidebar">
+            <div class="position-sticky pt-3">
+                <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                    <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+                    <span class="fs-4">Menu</span>
+                </a>
+                <hr>
+                <ul class="nav nav-pills flex-column mb-auto">
+                    <li class="nav-item">
+                        <a href="/" class="nav-link text-white active" aria-current="page">
+                            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+                            Home
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/clientinfo" class="nav-link text-white">
+                            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+                            Add Client Information
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/updateclient" class="nav-link text-white">
+                            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
+                            Update Client Details
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/deleteclient" class="nav-link text-white">
+                            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+                            Delete Client
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/searchclient" class="nav-link text-white">
+                            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+                            Search Client
+                        </a>
+                    </li>
+                </ul>
+                <hr>
+            </div>
+        </div>
+
+        <!-- Sidebar Overlay for mobile -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        
+        <div class="col-md-9 ms-sm-auto col-lg-10">
+            <div class="flex-grow-1">
+                <!-- Hero Section with Background Image -->
+                <div class="hero-section">
+                    <h1 style="font-size: 6rem;">Personal Finance Planner</h1>
+
+                    <!-- Buttons to redirect to the services -->
+                    <div class="btn-group">
+                        <a href="/clientinfo" class="btn btn-primary btn-lg">Create Client</a>
+                        <a href="/updateclient" class="btn btn-warning btn-lg">Update Client</a>
+                        <a href="/deleteclient" class="btn btn-danger btn-lg">Delete Client</a>
+                        <a href="/searchclient" class="btn btn-info btn-lg">Search Client</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="/docs/5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileSidebarToggle = document.getElementById('mobileSidebarToggle');
+            const sidebar = document.getElementById('sidebar');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+            // Ensure toggle button exists before adding event listeners
+            if (mobileSidebarToggle) {
+                mobileSidebarToggle.addEventListener('click', function() {
+                    sidebar.classList.toggle('show');
+                });
+            }
+
+            // Close sidebar when clicking overlay
+            if (sidebarOverlay) {
+                sidebarOverlay.addEventListener('click', function() {
+                    sidebar.classList.remove('show');
+                });
+            }
+        });
+    </script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

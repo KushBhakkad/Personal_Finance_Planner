@@ -12,62 +12,78 @@
     <link href="/docs/5.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     </style>
-
     
     <!-- Custom styles for this template -->
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900&amp;display=swap" rel="stylesheet">
     <!-- Custom styles for this template -->
-    <link href="/public/styles/main.css" rel="stylesheet">
+    <link href="/styles/main.css" rel="stylesheet">
 </head>
 
 <body>    
-    <div class="d-flex">
-        <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark min-vh-100" style="width: 280px;">
-          <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-            <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
-            <span class="fs-4">Menu</span>
-          </a>
-          <hr>
-          <ul class="nav nav-pills flex-column mb-auto">
-            <li class="nav-item">
-              <a href="/" class="nav-link text-white" aria-current="page">
-                <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
-                Home
+    <!-- Mobile Sidebar Toggle Button -->
+    <button class="mobile-sidebar-toggle d-md-none" id="mobileSidebarToggle">
+      <!-- Hamburger Menu SVG Icon -->
+      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+          <path d="M2 3h12a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/>
+          <path d="M2 7h12a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z"/>
+          <path d="M2 11h12a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1z"/>
+      </svg>
+  </button>  
+
+  <div class="d-flex">
+      <!-- Sidebar -->
+      <div class="col-md-3 col-lg-2 d-md-block bg-dark sidebar min-vh-100 p-3" id="sidebar">
+          <div class="position-sticky pt-3">
+              <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                  <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+                  <span class="fs-4">Menu</span>
               </a>
-            </li>
-            <li>
-              <a href="/clientinfo" class="nav-link text-white">
-                <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
-                Add Client Information
-              </a>
-            </li>
-            <li>
-              <a href="/updateclient" class="nav-link text-white">
-                <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
-                Update Client Details
-              </a>
-            </li>
-            <li>
-              <a href="/deleteclient" class="nav-link text-white active">
-                <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
-                Delete Client
-              </a>
-            </li>
-            <li>
-              <a href="/searchclient" class="nav-link text-white">
-                <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
-                Search Client
-              </a>
-            </li>
-          </ul>
-          <hr>
-        </div>
+              <hr>
+              <ul class="nav nav-pills flex-column mb-auto">
+                  <li class="nav-item">
+                      <a href="/" class="nav-link text-white" aria-current="page">
+                          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+                          Home
+                      </a>
+                  </li>
+                  <li>
+                      <a href="/clientinfo" class="nav-link text-white">
+                          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+                          Add Client Information
+                      </a>
+                  </li>
+                  <li>
+                      <a href="/updateclient" class="nav-link text-white">
+                          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
+                          Update Client Details
+                      </a>
+                  </li>
+                  <li>
+                      <a href="/deleteclient" class="nav-link text-white active">
+                          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+                          Delete Client
+                      </a>
+                  </li>
+                  <li>
+                      <a href="/searchclient" class="nav-link text-white">
+                          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+                          Search Client
+                      </a>
+                  </li>
+              </ul>
+              <hr>
+          </div>
+      </div>
+
+      <!-- Sidebar Overlay for mobile -->
+      <div class="sidebar-overlay" id="sidebarOverlay"></div>
       
+      <div class="col-md-9 ms-sm-auto col-lg-10">
         <div class="flex-grow-1 p-3">
-            <header>
-                <h1 style="text-align: center;">Personal Finance Planner</h1>
+            <header class="p-2">
+              <a href="/" class="text-black text-decoration-none"><h1 style="text-align: center;">Personal Finance Planner</h1></a>
             </header>
-            <div class="m-5 px-5 col-md-8 col-lg-11">
+            <div class="p-5 col-md-12 col-lg-12">
                 <h4 class="mb-3">Add CLient Information</h4>
                 <div id="statusMessage" class="mt-3" style="display: none;"></div>
                 <form id="deleteClientForm">
@@ -82,6 +98,7 @@
                 </form>                
               </div>
         </div>
+      </div>
     </div>
       
     <script>
@@ -114,6 +131,28 @@
           document.getElementById('statusMessage').className = 'alert alert-danger';
           document.getElementById('statusMessage').style.display = 'block';
         }
+      });
+    </script>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+          const mobileSidebarToggle = document.getElementById('mobileSidebarToggle');
+          const sidebar = document.getElementById('sidebar');
+          const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+          // Ensure toggle button exists before adding event listeners
+          if (mobileSidebarToggle) {
+              mobileSidebarToggle.addEventListener('click', function() {
+                  sidebar.classList.toggle('show');
+              });
+          }
+
+          // Close sidebar when clicking overlay
+          if (sidebarOverlay) {
+              sidebarOverlay.addEventListener('click', function() {
+                  sidebar.classList.remove('show');
+              });
+          }
       });
     </script>
 

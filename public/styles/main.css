@@ -1,0 +1,79 @@
+/* Responsive Sidebar Styles */
+@media (max-width: 1400px) {
+    /* Hide main sidebar */
+    .sidebar {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: -280px; /* Hidden by default */
+        width: 280px;
+        z-index: 1050;
+        transition: left 0.3s ease-in-out;
+        background-color: #212529 !important;
+    }
+
+    /* Show sidebar when 'show' class is added */
+    .sidebar.show {
+        left: 0;
+    }
+
+    /* Overlay when sidebar is open */
+    .sidebar-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.5);
+        z-index: 1049;
+        display: none;
+    }
+
+    /* Show overlay when sidebar is shown */
+    .sidebar.show + .sidebar-overlay {
+        display: block;
+    }
+
+    /* Mobile toggle button */
+    .mobile-sidebar-toggle {
+        display: block;
+        position: fixed;
+        top: 20px;
+        left: 10px;
+        z-index: 1100;
+        background: rgba(33, 37, 41, 0.8);
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    /* Main content adjustment when sidebar is hidden */
+    .col-md-9 {
+        width: 100%;
+        margin-left: 0 !important;
+    }
+}
+
+/* Large screen styles */
+@media (min-width: 1401px) {
+    .mobile-sidebar-toggle {
+        display: none;
+    }
+
+    .sidebar {
+        position: static;
+        left: 0 !important;
+        display: block !important;
+        width: 100%;
+        max-width: 280px;
+    }
+
+    .col-md-9 {
+        width: calc(100% - 280px);
+        margin-left: auto;
+    }
+}
+
+#mobileSidebarToggle svg {
+    color: white; /* Change this to any color you prefer */
+}
