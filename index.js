@@ -45,14 +45,19 @@ app.get("/deleteclient", async (req, res) => {
   res.render("deleteclient.ejs");
 });
 
-// Submit client info
 app.post("/submit-clientinfo", async (req, res) => {
   const { name, age, occupation, income, maritalStatus, dependencies, financialGoal } = req.body;
+
+  if (!name) {
+    return res.status(400).send("Client name is required.");
+  }
+
+  const sanitizedName = name.trim().toLowerCase(); 
 
   try {
     const result = await sql`
       INSERT INTO client_info (name, age, occupation, income, marital_status, dependencies, financial_goal)
-      VALUES (${name}, ${age}, ${occupation}, ${income}, ${maritalStatus}, ${dependencies}, ${financialGoal})
+      VALUES (${sanitizedName}, ${age}, ${occupation}, ${income}, ${maritalStatus}, ${dependencies}, ${financialGoal})
       RETURNING id;
     `;
     res.send("Client information submitted successfully.");
@@ -62,9 +67,14 @@ app.post("/submit-clientinfo", async (req, res) => {
   }
 });
 
-// Update client info
 app.post("/update-clientinfo", async (req, res) => {
   const { name, age, occupation, income, maritalStatus, dependencies, financialGoal } = req.body;
+
+  if (!name) {
+    return res.status(400).send("Client name is required.");
+  }
+
+  const sanitizedName = name.trim().toLowerCase(); 
 
   try {
     const result = await sql`
@@ -76,7 +86,7 @@ app.post("/update-clientinfo", async (req, res) => {
         marital_status = ${maritalStatus},
         dependencies = ${dependencies},
         financial_goal = ${financialGoal}
-      WHERE name = ${name};
+      WHERE name = ${sanitizedName};
     `;
 
     if (result.count === 0) {
@@ -90,7 +100,6 @@ app.post("/update-clientinfo", async (req, res) => {
   }
 });
 
-// Delete client info
 app.delete("/delete-clientinfo", async (req, res) => {
   const { name } = req.body;
 
@@ -98,12 +107,14 @@ app.delete("/delete-clientinfo", async (req, res) => {
     return res.status(400).send("Client name is required.");
   }
 
+  const sanitizedName = name.trim().toLowerCase(); 
+
   try {
     const result = await sql`
-      DELETE FROM client_info WHERE name = ${name};
+      DELETE FROM client_info WHERE name = ${sanitizedName} RETURNING *;
     `;
 
-    if (result.count === 0) {
+    if (result.length === 0) {
       res.status(404).send("No client found with the specified name. Deletion failed.");
     } else {
       res.send("Client record deleted successfully.");
@@ -114,7 +125,12 @@ app.delete("/delete-clientinfo", async (req, res) => {
   }
 });
 
-// Search client info
+function toSentenceCase(str) {
+  return str
+    .toLowerCase()
+    .replace(/\b\w/g, char => char.toUpperCase());
+}
+
 app.post("/search-clientinfo", async (req, res) => {
   const { name } = req.body;
 
@@ -122,9 +138,11 @@ app.post("/search-clientinfo", async (req, res) => {
     return res.status(400).send("Client name is required.");
   }
 
+  const sanitizedName = name.trim().toLowerCase(); // Trim spaces and convert to lowercase
+
   try {
     const result = await sql`
-      SELECT * FROM client_info WHERE name = ${name};
+      SELECT * FROM client_info WHERE name = ${sanitizedName};
     `;
 
     if (result.length === 0) {
@@ -132,8 +150,12 @@ app.post("/search-clientinfo", async (req, res) => {
     }
 
     const client = result[0]; // Assuming client is unique by name
+
+    // Convert name to sentence case
+    const formattedName = toSentenceCase(client.name);
+
     res.json({
-      name: client.name,
+      name: formattedName, // Displaying name in sentence case
       age: client.age,
       occupation: client.occupation,
       income: client.income,
